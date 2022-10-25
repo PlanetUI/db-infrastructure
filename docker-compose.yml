@@ -1,0 +1,35 @@
+version: '3.1'
+
+services:
+
+  mongodb:
+    image: mongo
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${DOCKER_MONGODB_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${DOCKER_MONGODB_PASSWORD}
+    ports:
+      - ${DOCKER_MONGODB_EXPOSE_PORT}:27017
+    volumes:
+      - ./data/mongodb/db:/data/db
+      - ./data/mongodb/configdb:/data/configdb
+
+  postgresql:
+    image: postgres
+    restart: always
+    environment:
+      - POSTGRES_HOST_AUTH_METHOD=trust
+      - POSTGRES_PASSWORD=${DOCKER_POSTGRESQL_PASSWORD}
+      - POSTGRES_USER=${DOCKER_POSTGRESQL_USERNAME}
+    ports:
+      - ${DOCKER_POSTGRESQL_EXPOSE_PORT}:5432
+    volumes:
+      - ./data/postgresql/pgdata:/var/lib/postgresql/data
+
+  redis:
+    image: redis
+    restart: always
+    ports:
+      - ${DOCKER_REDIS_EXPOSE_PORT}:6379
+    volumes:
+      - ./data/redis/data:/data
