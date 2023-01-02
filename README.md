@@ -1,3 +1,5 @@
+DEPRECATED, use [INFRA](https://github.com/mashanz/infra) instead.
+
 # Database and App Development Infrastructure
 
 - clone this repository
